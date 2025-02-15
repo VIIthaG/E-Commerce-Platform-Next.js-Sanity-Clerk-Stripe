@@ -10,9 +10,9 @@ function ProductThumb({ product }: { product: Product }) {
     <div>
       <Link
         href={`/product/${product.slug?.current}`}
-        className={`group flex flex-col bg-white rounded-md border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : " "}`}
+        className={`group flex flex-col bg-white rounded-md border border-gray-200 m-4  shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50" : " "}`} //added m4 here and changed from wfull to w64 like 3 lines below ig
       >
-        <div className="relative aspect-square w-full h-full overflow-hidden">
+        <div className="relative aspect-square w-60 h-60  overflow-hidden  ">
           {product.image && (
             <Image
               className="object-contain transition-transform duration-300 group-hover:scale-105 mt-4 "
@@ -29,7 +29,7 @@ function ProductThumb({ product }: { product: Product }) {
             </div>
           )}
         </div>
-        <div className="p-4">
+        <div className="p-4 ">
           <h2 className="text-lg font-semibold text-gray-800 truncate">
             {product.name}
           </h2>
