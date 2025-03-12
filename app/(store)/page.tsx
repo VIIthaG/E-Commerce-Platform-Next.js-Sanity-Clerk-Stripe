@@ -10,6 +10,7 @@ export default async function Home() {
 
   return (
     <div>
+      <p>hi</p>
       <Banner />
       <div className="flex  min-h-screen  bg-gray-300 p-4">
         <ProductsView products={products} categories={categories} />
