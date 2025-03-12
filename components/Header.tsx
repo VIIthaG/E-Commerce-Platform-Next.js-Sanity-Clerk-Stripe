@@ -20,7 +20,7 @@ function Header() {
   };
 
   return (
-    <header className="sm: flex flex-wrap justify-between items-center px-2 py-2">
+    <header className="shadow-lg shadow-gray-400 sm:flex flex-wrap justify-between items-center px-2 py-2">
       <div className="flex flex-wrap w-full justify-between items-center">
         <Link
           className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer ml-4  "

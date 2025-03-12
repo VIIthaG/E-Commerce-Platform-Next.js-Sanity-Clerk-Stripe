@@ -11,7 +11,7 @@ export default async function Home() {
   return (
     <div>
       <Banner />
-      <div className="flex flex-col itmes center justify top min-h-screen  bg-gray-300 p-4">
+      <div className="flex  min-h-screen  bg-gray-300 p-4">
         <ProductsView products={products} categories={categories} />
       </div>
     </div>

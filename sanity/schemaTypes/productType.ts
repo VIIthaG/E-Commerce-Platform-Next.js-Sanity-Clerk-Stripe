@@ -22,6 +22,16 @@ export const productType = defineType({
       },
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: "title", // Generates slug from the "title" field
+        maxLength: 200, // Optional: Limits slug length
+      },
+    }),
+
+    defineField({
       name: "description",
       type: "text",
     }),
