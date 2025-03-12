@@ -64,7 +64,7 @@ function Header() {
                 <UserButton />
                 <div className=" sm:block text-xs">
                   <p className="text-gray-400 mt-07">Welcome Back</p>
-                  <p className="font-bold">{user.fullName}!</p>
+                  <p className="font-bold  text-gray-400">{user.fullName}</p>
                 </div>
               </div>
             ) : (
