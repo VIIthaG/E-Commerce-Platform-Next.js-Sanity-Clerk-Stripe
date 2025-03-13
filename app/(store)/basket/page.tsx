@@ -5,10 +5,10 @@ import Loader from "@/components/Loader";
 import { imageUrl } from "@/lib/imageUrl";
 import { client } from "@/sanity/lib/client";
 import useBasketStore from "@/store/store";
-import { useAuth, useUser } from "@clerk/nextjs";
+import { SignedIn, SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function BasketPage() {
   const groupedItems = useBasketStore((state) => state.getGroupedItems());
@@ -17,6 +17,10 @@ function BasketPage() {
   const [isClient, setIsClient] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (!isClient) {
     return <Loader />;
@@ -30,6 +34,11 @@ function BasketPage() {
       </div>
     );
   }
+
+  const handleCheckout = async () => {
+    if (!isSignedIn) return;
+    setIsLoading(true);
+  };
 
   return (
     <div className="container mx-auto p-4 max-w-6xl">
@@ -76,6 +85,42 @@ function BasketPage() {
             </div>
           ))}
         </div>
+
+        <div className="w-full lg:w-80 lg:sticky lg:top-4 bg-white  h-fit p-6 border rounded order-first  lg:order-last fixed bottom-0 left-0 lg:left-auto">
+          <h3 className="text-xl font-semibold"> Order Summary</h3>
+          <div className="mt-4 space-y-2">
+            <p className="flex justify-between">
+              <span>Items:</span>
+              <span>
+                {groupedItems.reduce((total, item) => total + item.quantity, 0)}
+              </span>
+            </p>
+            <p className="flex justify-between text-xl pt-2 border-t font-bold">
+              <span>Total:</span>
+              <span>
+                ${useBasketStore.getState().getTotalPrice().toFixed(2)}
+              </span>
+            </p>
+          </div>
+
+          {isSignedIn ? (
+            <button
+              onClick={handleCheckout}
+              className="mt-4 w-full bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 text-white disabled:bg-gray-400"
+              disabled={isLoading}
+            >
+              {isLoading ? "Processing..." : "Checkout"}
+            </button>
+          ) : (
+            <SignInButton mode="modal">
+              <button className="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-500 ">
+                Sign in to Checkout
+              </button>
+            </SignInButton>
+          )}
+        </div>
+
+        <div className="h-64 lg:h-0">{/*Sup*/}</div>
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import Link from "next/link";
 import Form from "next/form";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import { ClerkLoaded, SignedIn, SignInButton, UserButton } from "@clerk/nextjs";
-import { userHasRole } from "sanity";
 import { useUser } from "@clerk/nextjs";
 import useBasketStore from "@/store/store";
 
@@ -24,64 +23,71 @@ function Header() {
   };
 
   return (
-    <header className="shadow-lg shadow-gray-400 sm:flex flex-wrap justify-between items-center px-2 py-2">
-      <div className="flex flex-wrap w-full justify-between items-center">
+    <header className="shadow-lg shadow-gray-400 px-4 py-3">
+      <div className="flex justify-between items-center flex-wrap">
+        {/* Logo */}
         <Link
-          className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer ml-4  "
+          className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer"
           href="/"
         >
           Yurrp ™
         </Link>
 
-        <Form
-          action="/search"
-          className="  sm:flex-1 sm:mx-4 mt-2 sm:mt-0 mx-4  w-80 "
-        >
+        {/* Search Bar */}
+        <Form action="/search" className="flex-1 mx-4 max-w-lg">
           <input
             type="text"
             name="query"
             placeholder="Search for Products"
-            className="bg-gray-100 text-gray-800 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border w-full lg:max-w-[80%] "
+            className="w-full bg-gray-100 text-gray-800 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border"
           />
         </Form>
-        {/* <div className="flex items-center space-x-4 mt-4 sm:mt-0 flex-1 "> */}
-        {/* sm:flex-none */}
-        <div className="flex-1 relative flex justify-center sm:justify-start sm:flex-none mt:0 items-center space-x-4  text-white font-bold py-2 px-4 rounded ">
-          <Link href="/basket">
-            <span className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 text-white font-semibold hover:bg-blue-400 rounded py-2 px-4">
-              <TrolleyIcon className=" w-6 h-6 " />
-              <span className="absolute -top-2 shadow-lg -right-2 w-5 h-5 bg-red-500 rounded-full items-center flex text-white justify-center text-xs">
-                {itemCount}
-              </span>
-              &nbsp;Basket
+
+        {/* Right Side Controls */}
+        <div className="flex items-center space-x-3">
+          {/* Basket */}
+          <Link
+            href="/basket"
+            className="relative flex items-center  bg-blue-500 text-white font-semibold hover:bg-blue-400 rounded py-2 px-4"
+          >
+            <TrolleyIcon className="w-6 h-6" />
+            <span className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs shadow-lg">
+              {itemCount}
             </span>
+            <span>Basket</span>
           </Link>
+
+          {/* Auth / User Controls */}
           <ClerkLoaded>
             <SignedIn>
               <Link
                 href="/order"
-                className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="flex items-center  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
-                <PackageIcon className="w-5 h-6"></PackageIcon>
-                <span> &nbsp; &nbsp;My Orders &nbsp;</span>
+                <PackageIcon className="w-5 h-6" />
+                <span>My Orders</span>
               </Link>
             </SignedIn>
+
             {user ? (
-              <div className="flex  items-center space-x-2">
+              <div className="flex items-center space-x-3">
                 <UserButton />
-                <div className=" sm:block text-xs">
-                  <p className="text-gray-400 mt-07">Welcome Back</p>
-                  <p className="font-bold  text-gray-400">{user.fullName}</p>
+                <div className="hidden sm:block text-xs">
+                  <p className="text-gray-400">Welcome Back</p>
+                  <p className="font-bold text-gray-400">{user.fullName}</p>
                 </div>
               </div>
             ) : (
-              <SignInButton mode="modal" />
+              <div className="text-white bg-stone-600 p-2 rounded font-semibold hover:bg-stone-700 cursor-pointer">
+                <SignInButton mode="modal" />
+              </div>
             )}
 
+            {/* Create Passkey Button */}
             {user?.passkeys.length === 0 && (
               <button
                 onClick={createClerkPassKey}
-                className="bg-white hover:bg-blue-700 hover:text-white animate-pulse text-blue-500 font-bold py-2 px-4 rounded border-blue-300 border"
+                className="bg-white hover:bg-blue-700 hover:text-white animate-pulse text-blue-500 font-bold py-2 px-4 rounded border border-blue-300"
               >
                 Create a Passkey
               </button>
