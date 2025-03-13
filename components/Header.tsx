@@ -6,9 +6,13 @@ import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import { ClerkLoaded, SignedIn, SignInButton, UserButton } from "@clerk/nextjs";
 import { userHasRole } from "sanity";
 import { useUser } from "@clerk/nextjs";
+import useBasketStore from "@/store/store";
 
 function Header() {
   const { user } = useUser();
+  const itemCount = useBasketStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0)
+  );
 
   const createClerkPassKey = async () => {
     try {
@@ -46,6 +50,9 @@ function Header() {
           <Link href="/basket">
             <span className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-blue-500 text-white font-semibold hover:bg-blue-400 rounded py-2 px-4">
               <TrolleyIcon className=" w-6 h-6 " />
+              <span className="absolute -top-2 shadow-lg -right-2 w-5 h-5 bg-red-500 rounded-full items-center flex text-white justify-center text-xs">
+                {itemCount}
+              </span>
               &nbsp;Basket
             </span>
           </Link>
