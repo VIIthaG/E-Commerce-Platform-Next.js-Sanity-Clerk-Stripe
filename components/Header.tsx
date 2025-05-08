@@ -24,7 +24,7 @@ function Header() {
 
   return (
     <header className="shadow-lg shadow-gray-400 px-4 py-3">
-      <div className="flex justify-between items-center flex-wrap">
+      <div className="flex justify-center items-center flex-wrap">
         {/* Logo */}
         <Link
           className="text-2xl font-bold text-blue-500 hover:opacity-50 cursor-pointer"

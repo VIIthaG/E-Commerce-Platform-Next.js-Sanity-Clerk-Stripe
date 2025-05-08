@@ -1,11 +1,15 @@
 "use client";
 
+import createCheckoutSession, {
+  Metadata,
+} from "@/actions/createCheckoutSession";
 import AddToBasketButton from "@/components/AddToBasketButton";
 import Loader from "@/components/Loader";
 import { imageUrl } from "@/lib/imageUrl";
 import { client } from "@/sanity/lib/client";
 import useBasketStore from "@/store/store";
 import { SignedIn, SignInButton, useAuth, useUser } from "@clerk/nextjs";
+import { EmailAddress } from "@clerk/nextjs/dist/types/server";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -36,6 +40,25 @@ function BasketPage() {
   }
 
   const handleCheckout = async () => {
+    try {
+      const metadata: Metadata = {
+        orderNumber: crypto.randomUUID(),
+        customerName: user?.fullName ?? "Unknown",
+        customerEmail: user?.emailAddresses[0].emailAddress ?? "Unknown",
+        clerkUserId: user!.id,
+      };
+
+      const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
+
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      }
+    } catch (error) {
+      console.error(error, "Error  creating checkout session");
+    } finally {
+      setIsLoading(false);
+    }
+
     if (!isSignedIn) return;
     setIsLoading(true);
   };
