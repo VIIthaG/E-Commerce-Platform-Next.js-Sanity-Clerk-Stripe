@@ -61,7 +61,7 @@ function Header() {
           <ClerkLoaded>
             <SignedIn>
               <Link
-                href="/order"
+                href="/orders"
                 className="flex items-center  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               >
                 <PackageIcon className="w-5 h-6" />

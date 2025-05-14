@@ -9,7 +9,7 @@ export default async function Home() {
   const categories = await getAllCategories();
 
   return (
-    <div>
+    <div className="">
       <Banner />
       <div className="flex  min-h-screen  bg-gray-300 p-4">
         <ProductsView products={products} categories={categories} />
