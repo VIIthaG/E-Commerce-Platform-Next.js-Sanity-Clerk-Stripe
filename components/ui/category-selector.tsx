@@ -22,7 +22,7 @@ import {
 import { Category } from "@/sanity.types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { categoryType } from "@/sanity/schemaTypes/categoryType";
+// import { categoryType } from "@/sanity/schemaTypes/categoryType";
 
 // const frameworks = [
 //   {

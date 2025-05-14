@@ -6,10 +6,8 @@ import createCheckoutSession, {
 import AddToBasketButton from "@/components/AddToBasketButton";
 import Loader from "@/components/Loader";
 import { imageUrl } from "@/lib/imageUrl";
-import { client } from "@/sanity/lib/client";
 import useBasketStore from "@/store/store";
-import { SignedIn, SignInButton, useAuth, useUser } from "@clerk/nextjs";
-import { EmailAddress } from "@clerk/nextjs/dist/types/server";
+import { SignInButton, useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
