@@ -1,4 +1,7 @@
-import type { StructureResolver } from "sanity/structure";
+// ./sanity/structure.ts
+
+// import S from "@sanity/structure-builder";
+import type { StructureResolver } from "sanity/desk"; // ✅ FIXED import
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>

@@ -4,10 +4,12 @@ import { searchProductsByName } from "@/sanity/lib/products/searchProductsByName
 async function SearchPage({
   searchParams,
 }: {
-  searchParams: { query: string };
+  searchParams: Promise<{ query: string }>;
 }) {
-  const { query } = searchParams;
+  const { query } = await searchParams; // Await the Promise here
   const products = await searchProductsByName(query);
+
+  // Rest of the code remains the same
 
   if (!products.length) {
     return (
