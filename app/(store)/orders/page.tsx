@@ -125,7 +125,7 @@ async function Orders() {
                           </div>
                         </div>
 
-                        <p className="font-medium text-right ">
+                        <p className="font-medium text-right sm:text-xs ">
                           {product.product?.price && product.quantity
                             ? formatCurrency(
                                 product.product?.price * product.quantity,
